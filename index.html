@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>Luke's Assignment II</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+        <script src="map1.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <dic class="content">
+            <div class="title-block">
+                <div class="title">
+                    <span>Australian Fire Danger 2020–2024</span>
+                </div>
+                <div class="sub-title">
+                    <span>Luke O'Brien – FIT3179 Assignment II</span>
+                </div>
+            </div>
+            <div class="body">
+                <div class="first-block">
+                    <div id="map1-wrapper" class="chart-wrapper">
+                        <div id="map1"></div>
+                        <div id="map1-controls">
+                            <b>Month:</b> 
+                            <input type="range" id="month-slider" min="0" max="59" step="1" value="0">
+                            <b>Zoom to:</b>
+                            <select id="state-dropdown">
+                                <option value="None">None</option>
+                                <option value="WA">WA</option>
+                                <option value="NT">NT</option>
+                                <option value="SA">SA</option>
+                                <option value="QLD">QLD</option>
+                                <option value="NSW">NSW</option>
+                                <option value="VIC">VIC</option>
+                                <option value="TAS">TAS</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="info">
+                        <p>
+                            On the left, you can see all the major fires over the last <b>five years</b>. Use the slider to view all months. With this, you can see the <b style="color:#ad0f0f;">Victorian bushfires in 2020</b> and the fires that swept through northern Australia.
+                        </p>
+                        <p>
+                            This data was collected through NASA’s <b>FIRM system</b> on the <b>MODIS Satellites</b>, combined with the <b>2021 Census</b> data to show where major fires have occurred in recent years.
+                        </p>
+                        <p>
+                            <b>MJ</b> stands for mega joules and <b>GJ</b> for giga joules, meaning <b>10⁶</b> and <b>10⁹ joules</b> respectively.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="second-block">
+                    <div class="info">
+                        <p>
+                            The map to the right illustrates the <b>distribution of fire frequency</b> across Australia from 2020–2024. Northern and eastern regions show the highest concentration of fires, particularly in <b style="color:#ad0f0f;">tropical and savanna zones.</b> In contrast, southern inland areas show fewer fires due to cooler and wetter conditions. This reflects Australia’s strong climatic gradients influencing fire occurrence.
+                        </p>
+                    </div>
+                    <div id="map2"></div>
+                </div>
+
+                <div class="third-block">
+                    <div id="plot1"></div>
+                    <div class="info">
+                        <p>
+                            The plot to the left shows a clear pattern of <b>seasonal fire behaviour</b>. Fire activity increases sharply from <b>September through February</b>, aligning with <b>spring and summer</b> when high temperatures, low humidity, and strong winds create ideal conditions for ignition. From <b>March to August</b>, both the number and severity of fires decline significantly.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="fourth-block">
+                    <div id="dbd"></div>
+                    <div class="info">
+                        <p>
+                            The calendar plot above highlights <b>intensity peaks from </b> <b style="color:#ad0f0f;">September to February</b> each year. The strong clustering of high fire power coincides with warmer months when dryness and wind speeds are greatest. The <b>2020</b> period shows elevated activity consistent with the <b>major bushfire events</b> that year, and notable fires in the north during <b>October 2023</b>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="fifth-block">
+                    <div class="info">
+                        <p>
+                            The bar chart shows that <b>younger and middle-aged groups (0–34 years)</b> experience the highest fire exposure. This likely reflects demographic distribution and greater representation in <b>fire-prone regions</b>. Older populations show lower exposure rates, possibly due to residence patterns and reduced mobility.
+                        </p>
+                    </div>
+                    <div id="fire-ages"></div>
+                </div>
+
+                <div class="sixth-block">
+                    <div id="fire-indigenous"></div>
+                    <div class="info">
+                        <p>
+                            This chart shows that <b>Indigenous Australians</b> face a higher rate of <b>fire exposure</b> than non-Indigenous populations. The disparity reflects environmental and socioeconomic factors, including proximity to bushland and limited fire mitigation infrastructure. This highlights the need for <b>targeted fire management strategies</b> and community support.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </dic>
+    </body>
+</html>

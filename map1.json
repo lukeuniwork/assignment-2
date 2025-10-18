@@ -1,0 +1,125 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 500,
+  "height": 420,
+  "title": {"text": "Major fires since 2020", "fontSize": 20},
+  "projection": {
+    "type": "equirectangular",
+    "center": {"expr": "stateZoom == 'None' ? [134, -28] : zoomCenters[stateZoom].center"},
+    "scale": {"expr": "stateZoom == 'None' ? 600 : zoomCenters[stateZoom].scale"}
+  },
+  "params": [
+    {
+      "name": "monthIndex",
+      "value": 0
+    },
+    {
+      "name": "stateZoom",
+      "value": "None"
+    },
+    {
+      "name": "zoomCenters",
+      "value": {
+        "WA": {"center": [122, -25], "scale": 1200},
+        "NT": {"center": [133, -19], "scale": 1500},
+        "SA": {"center": [136, -30], "scale": 1500},
+        "QLD": {"center": [145, -20], "scale": 1600},
+        "NSW": {"center": [147, -32], "scale": 1700},
+        "VIC": {"center": [144, -37], "scale": 1800},
+        "TAS": {"center": [147, -42], "scale": 2200}
+      }
+    }
+  ],
+  "layer": [
+    {
+      "data": {"sphere": true},
+      "mark": {"type": "geoshape", "filled": true, "color": "#a4c8f0"}
+    },
+    {
+      "data": {"url": "topo.json", "format": {"type": "topojson", "feature": "topo"}},
+      "mark": {"type": "geoshape", "fill": "#bfd6ad", "stroke": "white"}
+    },
+    {
+      "data": {"url": "modis_Australia_filtered.csv"},
+      "transform": [
+        {
+          "calculate": "timeFormat(datetime(2020 + floor(monthIndex/12), monthIndex%12, 1), '%Y-%m')",
+          "as": "selected_month"
+        },
+        {"filter": "datum.year_month == datum.selected_month"}
+      ],
+      "mark": {"type": "circle", "tooltip": {"content": "data"}},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "size": {
+          "field": "frp",
+          "type": "quantitative",
+          "title": "Power Output (MJ)",
+          "legend": {
+            "orient": "top"
+          },
+          "scale": {"domain": [0, 10000]}
+        },
+        "color": {
+          "field": "brightness",
+          "type": "quantitative",
+          "title": "Brightness (Kelvin)",
+          "legend": {
+            "orient": "top"
+          },
+          "scale": {"scheme": "goldred", "domain": [300, 550]}
+        },
+        "tooltip": [
+          {"field": "brightness", "type": "quantitative", "title": "Brightness (K)"},
+          {"field": "frp", "type": "quantitative", "title": "Power (MJ)", "format": ",.1f"},
+          {"field": "acq_date", "type": "nominal", "title": "Date"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {"state": "WA", "lon": 122, "lat": -25},
+          {"state": "NT", "lon": 133, "lat": -19},
+          {"state": "SA", "lon": 136, "lat": -30},
+          {"state": "QLD", "lon": 145, "lat": -20},
+          {"state": "NSW", "lon": 147, "lat": -32},
+          {"state": "VIC", "lon": 144, "lat": -37},
+          {"state": "TAS", "lon": 147, "lat": -42}
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 8,
+        "fontWeight": "bold",
+        "color": "#2c3e50"
+      },
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "state"}
+      }
+    },
+    {
+      "data": {"values": [{}]},
+      "transform": [
+        {
+          "calculate": "timeFormat(datetime(2020 + floor(monthIndex/12), monthIndex%12, 1), '%B %Y')",
+          "as": "sliderLabel"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "x": 180,
+        "y": 430,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "align": "left",
+        "color": "#2c3e50"
+      },
+      "encoding": {"text": {"field": "sliderLabel"}}
+    }
+  ],
+  "config": {"view": {"renderer": "canvas"}}
+}

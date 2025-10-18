@@ -1,0 +1,34 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "National fire impact by origin",
+  "width": 330,
+  "height": 100,
+  "title":{"text":"Fire exposure rate for indigenous people", "fontSize": 20},
+  "data": {
+    "url": "fire-indigenous-vs-nonindigenous.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "tooltip": true,
+    "color": "#541b09"
+  },
+  "encoding": {
+    "y": {
+      "field": "Metric",
+      "type": "nominal",
+      "title": "",
+      "sort": [
+        "Per Indigenous Person", "Per Non-Indigenous Person"
+      ]
+    },
+    "x": {
+      "field": "Value",
+      "type": "quantitative",
+      "title": "Percentage (%)"
+    },
+    "tooltip": [
+      {"field": "Metric", "type": "ordinal", "title": "Group"},
+      {"field": "Value", "type": "quantitative", "title": "Perentage", "format": ",.1f"}
+    ]
+  }
+}

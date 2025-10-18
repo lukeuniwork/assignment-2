@@ -1,0 +1,36 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "description": "National fire impact by age group",
+  "width": 400,
+  "height": 400,
+  "title": {"text":"Age groups affected by fires", "fontSize": 20},
+  "data": {
+    "url": "fire-ages2.csv"
+  },
+  "mark": {
+    "type": "bar",
+    "tooltip": true,
+    "color": "#541b09"
+  },
+  "encoding": {
+    "y": {
+      "field": "Age_Group",
+      "type": "ordinal",
+      "title": "Age Group",
+      "sort": [
+        "0-4 years", "5-14 years", "15-19 years", "20-24 years",
+        "25-34 years", "35-44 years", "45-54 years", "55-64 years",
+        "65-74 years", "75-84 years", "85+ years"
+      ]
+    },
+    "x": {
+      "field": "People_Fire_Exposure",
+      "type": "quantitative",
+      "title": "Fires Per Person"
+    },
+    "tooltip": [
+      {"field": "Age_Group", "type": "ordinal", "title": "Age Group"},
+      {"field": "People_Fire_Exposure", "type": "quantitative", "title": "People Affected", "format": ",.1f"}
+    ]
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Calendar chart of daily fire power output in Australia (2020-2024)",
+  "title": {
+    "text": "Daily Fire Power Output in Australia 2020-2024 (Log scale)",
+    "anchor": "start",
+    "fontSize": 20,
+    "fontWeight": "bold",
+    "offset": 8
+  },
+  "data": {"url": "dbd_calendar.csv", "format": {"type": "csv"}},
+  "facet": {
+    "row": {
+      "field": "year",
+      "type": "ordinal",
+      "sort": "ascending",
+      "header": {
+        "title": null,
+        "labelFontSize": 13,
+        "labelFontWeight": "bold",
+        "labelAlign": "left",
+        "labelAnchor": "start",
+        "labelPadding": 10
+      }
+    },
+    "column": {
+      "field": "month",
+      "type": "ordinal",
+      "sort": [1,2,3,4,5,6,7,8,9,10,11,12],
+      "header": {
+        "title": null,
+        "labelExpr": "timeFormat(datetime(2000, datum.value - 1, 1), '%b')",
+        "labelFontSize": 12,
+        "labelAngle": 0,
+        "labelPadding": 6
+      }
+    }
+  },
+  "spec": {
+    "width": 72,
+    "height": 72,
+    "layer": [
+      {
+        "mark": {
+          "type": "rect",
+          "stroke": "#5f5f5fe2",
+          "strokeOpacity": 0.4,   
+          "strokeWidth": 0.8
+        },
+        "encoding": {
+          "x": {
+            "field": "week_in_month",
+            "type": "ordinal",
+            "title": null,
+            "axis": {"labels": false, "ticks": false}
+          },
+          "y": {
+            "field": "weekday",
+            "type": "ordinal",
+            "title": null,
+            "axis": {
+              "labelExpr": "['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][datum.value]",
+              "labelFontSize": 12,
+              "labelPadding": 10
+            }
+          },
+          "color": {
+            "field": "power_output",
+            "type": "quantitative",
+            "title": "Power Output (MJ)",
+            "scale": {"type": "symlog", "scheme": "inferno", "domain":[100,1000000], "reverse":true},
+            "legend": {"orient": "top", "titleFontSize": 12}
+          },
+          "tooltip": [
+            {"field": "day", "type": "temporal", "title": "Date"},
+            {"field": "power_output", "type": "quantitative", "title": "Power Output", "format": ",.1f"}
+          ]
+        }
+      }
+    ]
+  },
+  "resolve": {"scale": {"color": "shared"}},
+  "config": {
+    "view": {"stroke": "transparent"},
+    "facet": {"spacing": 6},
+    "title": {"anchor": "start"}
+  }
+}
